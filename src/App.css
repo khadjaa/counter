@@ -6,8 +6,11 @@
 }
 
 .view {
-    background-color: green;
+    background-color: #2e3c5d;
     width: 500px;
+    color: white;
+    margin: 10px;
+    padding: 10px;
 }
 
 .set {
@@ -15,4 +18,22 @@
     flex-direction: column;
     width: 500px;
     justify-content: space-between;
+    background-color: #2e3c5d;
+    color: white;
+    margin: 10px;
+    padding: 20px;
+}
+
+.set input {
+    margin: 10px 150px 10px 150px;
+    text-align: center;
+    border-radius: 10px;
+    display: inline-block;
+    border: none;
+}
+
+.set button {
+    margin: 20px 150px 10px 150px;
+    border-radius: 10px;
+    border: none;
 }
