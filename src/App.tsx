@@ -6,7 +6,6 @@ function App() {
     const [minValue, setMinValue] = useState<number>(0)
     const [maxValue, setMaxValue] = useState<number>(0)
     const [value, setValue] = useState<number>(0)
-    const [flag, setFlag] = useState<boolean>(false)
     const [flagRes, setFlagRes] = useState<boolean>(false)
     const [flagSet, setFlagSet] = useState<boolean>(true)
 
@@ -29,7 +28,6 @@ function App() {
             setMaxValue(Number(newMaxValue))
             console.log('newMaxValue ', typeof newMinValue)
         }
-        setFlag(false)
         setValue(minValue)
     }
 
@@ -41,7 +39,6 @@ function App() {
             setMaxValue(Number(value));
         }
         setFlagRes(true)
-        setFlag(true)
         setFlagSet(false)
     }
 
@@ -49,20 +46,13 @@ function App() {
         localStorage.setItem('minValue', JSON.stringify(minValue))
         localStorage.setItem('maxValue', JSON.stringify(maxValue))
         setFlagRes(false)
-        setFlag(false)
         setFlagSet(true)
     }
 
     useEffect(() => {
         resetHandler()
     }, [])
-    const testFlag = maxValue !== 0 && value === maxValue
-
-    useEffect(() => {
-        if (maxValue !== 0 && value === maxValue) {
-            setFlag(true)
-        }
-    }, [value])
+    const testFlag = value >= maxValue
 
     useEffect(() => {
         setValue(Number(minValue))
@@ -80,7 +70,7 @@ function App() {
                         ? <h1>press set</h1>
                         : <h1 className={value === maxValue ? 'redValue' : ''}>{value}</h1>
                 }
-                <button onClick={incHandler} disabled={flag}>inc</button>
+                <button onClick={incHandler} disabled={testFlag}>inc</button>
                 <button onClick={resetHandler} disabled={flagRes}>reset</button>
             </div>
             <div className='set'>
