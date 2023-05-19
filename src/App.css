@@ -37,3 +37,7 @@
     border-radius: 10px;
     border: none;
 }
+
+.redValue {
+    color: red;
+}

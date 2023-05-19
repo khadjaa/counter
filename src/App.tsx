@@ -10,6 +10,9 @@ function App() {
 
     useEffect(() => {
         resetHandler()
+        // what is the magic with EsLint ?))))))
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -17,13 +20,18 @@ function App() {
     }, [minValue])
 
     const incHandler = () => {
-        console.log('Value ', value)
         if (value < maxValue) {
-            setValue((prevState) => prevState + 1) // value smaller one ?
-        } else {
+            setValue( (prev) => prev + 1) // value smaller one ?
+        }
+        console.log('Value ', value)
+    }
+
+    useEffect(() => {
+        if (maxValue !== 0 && value === maxValue) {
             setFlag(true)
         }
-    }
+    },[value])
+
     const resetHandler = () => {
         let minValueAsString = localStorage.getItem('minValue')
         let maxValueAsString = localStorage.getItem('maxValue')
@@ -53,16 +61,22 @@ function App() {
         localStorage.setItem('maxValue', JSON.stringify(e.currentTarget.value))
     }
 
+    console.log(flag, 'before ret')
+
     return (
         <div className="App">
             <div className='view'>
-                <h1>{value}</h1>
+                <h1 className={value === maxValue ? 'redValue' : ''}>{value}</h1>
                 <button onClick={incHandler} disabled={flag}>inc</button>
                 <button onClick={resetHandler}>reset</button>
             </div>
             <div className='set'>
-                <input type="number" value={minValue} onChange={(e) => setMinValueOnClickHandler(e)}/> min // how to do in one line
-                <input type="number" value={maxValue} onChange={(e) => setMaxValueOnClickHandler(e)}/> max
+                <input type="number" value={minValue} onChange={(e) => setMinValueOnClickHandler(e)}/>
+                <span>min</span>
+               <div>
+                   <input type="number" value={maxValue} onChange={(e) => setMaxValueOnClickHandler(e)}/>
+                   <span>max</span>
+               </div>
                 <button onClick={() => {
                 }}>set
                 </button>
