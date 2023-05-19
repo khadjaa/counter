@@ -94,7 +94,7 @@ function App() {
                     <input type="number" name="maxValue" value={maxValue}
                            onChange={(e) => setSettingsValue(e)}/>
                 </div>
-                <button onClick={saveValuesOnLocalStorage} disabled={flags.set}>set</button>
+                <button  onClick={saveValuesOnLocalStorage} disabled={flags.set}>set</button>
             </div>
         </div>
     );
