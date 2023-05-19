@@ -7,6 +7,7 @@ function App() {
     const [maxValue, setMaxValue] = useState<number>(0)
     const [value, setValue] = useState<number>(0)
     const [flag, setFlag] = useState<boolean>(false)
+    const [flagRes, setFlagRes] = useState<boolean>(false)
 
     useEffect(() => {
         resetHandler()
@@ -21,7 +22,7 @@ function App() {
 
     const incHandler = () => {
         if (value < maxValue) {
-            setValue( (prev) => prev + 1) // value smaller one ?
+            setValue((prev) => prev + 1) // value smaller one ?
         }
         console.log('Value ', value)
     }
@@ -30,7 +31,7 @@ function App() {
         if (maxValue !== 0 && value === maxValue) {
             setFlag(true)
         }
-    },[value])
+    }, [value])
 
     const resetHandler = () => {
         let minValueAsString = localStorage.getItem('minValue')
@@ -49,36 +50,53 @@ function App() {
         setValue(minValue)
     }
 
-    const setMinValueOnClickHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let minV = Number(e.currentTarget.value)
-        setMinValue(minV)
-        localStorage.setItem('minValue', JSON.stringify(e.currentTarget.value))
+    const setSettingsValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value} = e.target
+        if (name === "minValue") {
+            setMinValue(Number(value));
+        } else if (name === "maxValue") {
+            setMaxValue(Number(value));
+        }
+        setFlagRes(true)
+        setFlag(true)
     }
 
-    const setMaxValueOnClickHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let maxV = Number(e.currentTarget.value)
-        setMaxValue(maxV)
-        localStorage.setItem('maxValue', JSON.stringify(e.currentTarget.value))
+    const saveValuesOnLocalStorage = () => {
+        localStorage.setItem('minValue', JSON.stringify(minValue))
+        localStorage.setItem('maxValue', JSON.stringify(maxValue))
+        setFlagRes(false)
+        setFlag(false)
     }
-
-    console.log(flag, 'before ret')
 
     return (
         <div className="App">
             <div className='view'>
-                <h1 className={value === maxValue ? 'redValue' : ''}>{value}</h1>
+                {flagRes && (minValue < 0 || maxValue < 0 || minValue === maxValue)
+                    ? <h1 className={'redValue'}>Incorrect settings</h1>
+                    : flagRes
+                        ? <h1>press set</h1>
+                        : <h1 className={value === maxValue ? 'redValue' : ''}>{value}</h1>
+                }
+
+                {/*{minValue < 0 || maxValue < 0 || minValue === maxValue*/}
+                {/*    ? <h1 className={'redValue'}>Incorrect settings</h1>*/}
+                {/*    : <h1 className={value === maxValue ? 'redValue' : ''}>{value}</h1>*/}
+                {/*}*/}
                 <button onClick={incHandler} disabled={flag}>inc</button>
-                <button onClick={resetHandler}>reset</button>
+                <button onClick={resetHandler} disabled={flagRes}>reset</button>
             </div>
             <div className='set'>
-                <input type="number" value={minValue} onChange={(e) => setMinValueOnClickHandler(e)}/>
-                <span>min</span>
-               <div>
-                   <input type="number" value={maxValue} onChange={(e) => setMaxValueOnClickHandler(e)}/>
-                   <span>max</span>
-               </div>
-                <button onClick={() => {
-                }}>set
+                <div>
+                    <span>min </span>
+                    <input type="number" name="minValue" value={minValue}
+                           onChange={(e) => setSettingsValue(e)}/>
+                </div>
+                <div>
+                    <span>max </span>
+                    <input type="number" name="maxValue" value={maxValue}
+                           onChange={(e) => setSettingsValue(e)}/>
+                </div>
+                <button onClick={saveValuesOnLocalStorage}>set
                 </button>
             </div>
         </div>
