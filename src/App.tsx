@@ -8,30 +8,13 @@ function App() {
     const [value, setValue] = useState<number>(0)
     const [flag, setFlag] = useState<boolean>(false)
     const [flagRes, setFlagRes] = useState<boolean>(false)
-
-    useEffect(() => {
-        resetHandler()
-        // what is the magic with EsLint ?))))))
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    useEffect(() => {
-        setValue(Number(minValue))
-    }, [minValue])
+    const [flagSet, setFlagSet] = useState<boolean>(true)
 
     const incHandler = () => {
         if (value < maxValue) {
-            setValue((prev) => prev + 1) // value smaller one ?
+            setValue((prev) => prev + 1)
         }
-        console.log('Value ', value)
     }
-
-    useEffect(() => {
-        if (maxValue !== 0 && value === maxValue) {
-            setFlag(true)
-        }
-    }, [value])
 
     const resetHandler = () => {
         let minValueAsString = localStorage.getItem('minValue')
@@ -59,6 +42,7 @@ function App() {
         }
         setFlagRes(true)
         setFlag(true)
+        setFlagSet(false)
     }
 
     const saveValuesOnLocalStorage = () => {
@@ -66,37 +50,51 @@ function App() {
         localStorage.setItem('maxValue', JSON.stringify(maxValue))
         setFlagRes(false)
         setFlag(false)
+        setFlagSet(true)
     }
+
+    useEffect(() => {
+        resetHandler()
+    }, [])
+    const testFlag = maxValue !== 0 && value === maxValue
+
+    useEffect(() => {
+        if (maxValue !== 0 && value === maxValue) {
+            setFlag(true)
+        }
+    }, [value])
+
+    useEffect(() => {
+        setValue(Number(minValue))
+        if (minValue > maxValue || minValue === maxValue || minValue < 0 || maxValue < 0) {
+            setFlagSet(true)
+        }
+    }, [minValue, maxValue])
 
     return (
         <div className="App">
             <div className='view'>
-                {flagRes && (minValue < 0 || maxValue < 0 || minValue === maxValue)
+                {flagRes && (minValue < 0 || maxValue < 0 || minValue === maxValue || minValue > maxValue)
                     ? <h1 className={'redValue'}>Incorrect settings</h1>
                     : flagRes
                         ? <h1>press set</h1>
                         : <h1 className={value === maxValue ? 'redValue' : ''}>{value}</h1>
                 }
-
-                {/*{minValue < 0 || maxValue < 0 || minValue === maxValue*/}
-                {/*    ? <h1 className={'redValue'}>Incorrect settings</h1>*/}
-                {/*    : <h1 className={value === maxValue ? 'redValue' : ''}>{value}</h1>*/}
-                {/*}*/}
                 <button onClick={incHandler} disabled={flag}>inc</button>
                 <button onClick={resetHandler} disabled={flagRes}>reset</button>
             </div>
             <div className='set'>
                 <div>
-                    <span>min </span>
+                    <span>min value </span>
                     <input type="number" name="minValue" value={minValue}
                            onChange={(e) => setSettingsValue(e)}/>
                 </div>
                 <div>
-                    <span>max </span>
+                    <span>max value </span>
                     <input type="number" name="maxValue" value={maxValue}
                            onChange={(e) => setSettingsValue(e)}/>
                 </div>
-                <button onClick={saveValuesOnLocalStorage}>set
+                <button onClick={saveValuesOnLocalStorage} disabled={flagSet}>set
                 </button>
             </div>
         </div>
