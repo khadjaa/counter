@@ -78,8 +78,10 @@ function App() {
                         ? <h1>press set</h1>
                         : <h1 className={value === maxValue ? 'redValue' : ''}>{value}</h1>
                 }
-                <button onClick={incHandler} disabled={flags.inc}>inc</button>
-                <button onClick={resetHandler} disabled={flags.res}>reset</button>
+                <div className='viewButtons'>
+                    <button onClick={incHandler} disabled={flags.inc}>inc</button>
+                    <button onClick={resetHandler} disabled={flags.res}>reset</button>
+                </div>
             </div>
             <div className='set'>
                 <div>
@@ -92,8 +94,7 @@ function App() {
                     <input type="number" name="maxValue" value={maxValue}
                            onChange={(e) => setSettingsValue(e)}/>
                 </div>
-                <button onClick={saveValuesOnLocalStorage} disabled={flags.set}>set
-                </button>
+                <button onClick={saveValuesOnLocalStorage} disabled={flags.set}>set</button>
             </div>
         </div>
     );

@@ -1,41 +1,85 @@
 .App {
-    text-align: center;
     display: flex;
     justify-content: space-around;
-    /*margin: 250px;*/
+    background-color: #272b3a;
+    margin: 10px;
 }
 
 .view {
-    background-color: #2e3c5d;
+    display: flex;
+    flex-direction: column;
+    /*justify-content: center; !* Центрирование по вертикали *!*/
+    align-items: center; /* Центрирование по горизонтали */
     width: 500px;
-    color: white;
+    color: #0b55ec;
     margin: 10px;
     padding: 10px;
+    border: 1px solid #0b55ec;
+    border-radius: 10px;
+}
+
+.view h1 {
+    text-align: center;
+    border: 1px solid #0b55ec;
+    border-radius: 10px;
+    margin-top: 5px;
+    font-size: 50px;
+    width: 490px;
+    max-width: 500px;
+    height: 100px;
+}
+
+.viewButtons {
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid #0b55ec;
+    border-radius: 10px;
+    width: 490px;
+    max-width: 500px;
+    padding: 5px 0;
+}
+
+.viewButtons button {
+    border-radius: 10px;
+    align-self: center;
+    width: 100px;
+    font-size: 25px;
+    background-color: #0b55ec;
+    color: #272b3a;
+    font-weight: bold;
 }
 
 .set {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 500px;
     justify-content: space-between;
-    background-color: #2e3c5d;
     color: white;
     margin: 10px;
     padding: 20px;
+    border: 1px solid #0b55ec;
+    border-radius: 10px;
 }
 
 .set input {
     text-align: center;
     border-radius: 10px;
     display: inline-block;
-    border: none;
+    width: 240px;
     max-width: 150px;
+    border: 2px solid #0b55ec;
+    font-size: 20px;
 }
 
 .set button {
     border-radius: 10px;
     align-self: center;
-    width: 50px;
+    width: 100px;
+    font-size: 25px;
+    background-color: #0b55ec;
+    color: #272b3a;
+    font-weight: bold;
 }
 
 .redValue {
