@@ -2,7 +2,8 @@
     display: flex;
     justify-content: space-around;
     background-color: #272b3a;
-    margin: 10px;
+    width: 100%;
+    height: 100%;
 }
 
 .view {
@@ -11,16 +12,16 @@
     /*justify-content: center; !* Центрирование по вертикали *!*/
     align-items: center; /* Центрирование по горизонтали */
     width: 500px;
-    color: #0b55ec;
+    color: #0be5ec;
     margin: 10px;
     padding: 10px;
-    border: 1px solid #0b55ec;
+    border: 1px solid #0be5ec;
     border-radius: 10px;
 }
 
 .view h1 {
     text-align: center;
-    border: 1px solid #0b55ec;
+    border: 1px solid #0be5ec;
     border-radius: 10px;
     margin-top: 5px;
     font-size: 50px;
@@ -32,7 +33,7 @@
 .viewButtons {
     display: flex;
     justify-content: space-around;
-    border: 1px solid #0b55ec;
+    border: 1px solid #0be5ec;
     border-radius: 10px;
     width: 490px;
     max-width: 500px;
@@ -44,9 +45,13 @@ button {
     align-self: center;
     width: 100px;
     font-size: 25px;
-    background-color: #0b55ec;
+    background-color: #0be5ec;
     color: #272b3a;
     font-weight: bold;
+}
+
+button:disabled {
+    background-color: #2e8285;
 }
 
 .set {
@@ -58,7 +63,7 @@ button {
     color: white;
     margin: 10px;
     padding: 20px;
-    border: 1px solid #0b55ec;
+    border: 1px solid #0be5ec;
     border-radius: 10px;
 }
 
@@ -68,7 +73,7 @@ button {
     display: inline-block;
     width: 240px;
     max-width: 150px;
-    border: 2px solid #0b55ec;
+    border: 2px solid #0be5ec;
     font-size: 20px;
 }
 
